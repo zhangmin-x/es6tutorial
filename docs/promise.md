@@ -251,7 +251,7 @@ getJSON("/post/1.json").then(
 
 ## Promise.prototype.catch()
 
-`Promise.prototype.catch`方法是`.then(null, rejection)`的别名，用于指定发生错误时的回调函数。
+`Promise.prototype.catch`方法是`.then(null, rejection)`或`.then(undefined, rejection)`的别名，用于指定发生错误时的回调函数。
 
 ```javascript
 getJSON('/posts.json').then(function(posts) {
@@ -613,10 +613,10 @@ Promise.all([
   booksPromise,
   userPromise
 ])
-.then(([books, user]) => pickTopRecommentations(books, user));
+.then(([books, user]) => pickTopRecommendations(books, user));
 ```
 
-上面代码中，`booksPromise`和`userPromise`是两个异步操作，只有等到它们的结果都返回了，才会触发`pickTopRecommentations`这个回调函数。
+上面代码中，`booksPromise`和`userPromise`是两个异步操作，只有等到它们的结果都返回了，才会触发`pickTopRecommendations`这个回调函数。
 
 注意，如果作为参数的 Promise 实例，自己定义了`catch`方法，那么它一旦被`rejected`，并不会触发`Promise.all()`的`catch`方法。
 
@@ -993,7 +993,7 @@ try {
 上面这样的写法就很笨拙了，这时就可以统一用`promise.catch()`捕获所有同步和异步的错误。
 
 ```javascript
-Promise.try(database.users.get({id: userId}))
+Promise.try(() => database.users.get({id: userId}))
   .then(...)
   .catch(...)
 ```

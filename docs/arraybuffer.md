@@ -14,9 +14,9 @@
 
 **（3）`DataView`视图**：可以自定义复合格式的视图，比如第一个字节是 Uint8（无符号 8 位整数）、第二、三个字节是 Int16（16 位整数）、第四个字节开始是 Float32（32 位浮点数）等等，此外还可以自定义字节序。
 
-简单说，`ArrayBuffer`对象代表原始的二进制数据，TypedArray 视图用来读写简单类型的二进制数据，`DataView`视图用来读写复杂类型的二进制数据。
+简单说，`ArrayBuffer`对象代表原始的二进制数据，`TypedArray`视图用来读写简单类型的二进制数据，`DataView`视图用来读写复杂类型的二进制数据。
 
-TypedArray 视图支持的数据类型一共有 9 种（`DataView`视图支持除`Uint8C`以外的其他 8 种）。
+`TypedArray`视图支持的数据类型一共有 9 种（`DataView`视图支持除`Uint8C`以外的其他 8 种）。
 
 | 数据类型 | 字节长度 | 含义                             | 对应的 C 语言类型 |
 | -------- | -------- | -------------------------------- | ----------------- |
@@ -64,7 +64,7 @@ dataView.getUint8(0) // 0
 
 上面代码对一段 32 字节的内存，建立`DataView`视图，然后以不带符号的 8 位整数格式，从头读取 8 位二进制数据，结果得到 0，因为原始内存的`ArrayBuffer`对象，默认所有位都是 0。
 
-另一种 TypedArray 视图，与`DataView`视图的一个区别是，它不是一个构造函数，而是一组构造函数，代表不同的数据格式。
+另一种`TypedArray`视图，与`DataView`视图的一个区别是，它不是一个构造函数，而是一组构造函数，代表不同的数据格式。
 
 ```javascript
 const buffer = new ArrayBuffer(12);
@@ -79,7 +79,7 @@ x1[0] // 2
 
 上面代码对同一段内存，分别建立两种视图：32 位带符号整数（`Int32Array`构造函数）和 8 位不带符号整数（`Uint8Array`构造函数）。由于两个视图对应的是同一段内存，一个视图修改底层内存，会影响到另一个视图。
 
-TypedArray 视图的构造函数，除了接受`ArrayBuffer`实例作为参数，还可以接受普通数组作为参数，直接分配内存生成底层的`ArrayBuffer`实例，并同时完成对这段内存的赋值。
+`TypedArray`视图的构造函数，除了接受`ArrayBuffer`实例作为参数，还可以接受普通数组作为参数，直接分配内存生成底层的`ArrayBuffer`实例，并同时完成对这段内存的赋值。
 
 ```javascript
 const typedArray = new Uint8Array([0,1,2]);
@@ -89,7 +89,7 @@ typedArray[0] = 5;
 typedArray // [5, 1, 2]
 ```
 
-上面代码使用 TypedArray 视图的`Uint8Array`构造函数，新建一个不带符号的 8 位整数视图。可以看到，`Uint8Array`直接使用普通数组作为参数，对底层内存的赋值同时完成。
+上面代码使用`TypedArray`视图的`Uint8Array`构造函数，新建一个不带符号的 8 位整数视图。可以看到，`Uint8Array`直接使用普通数组作为参数，对底层内存的赋值同时完成。
 
 ### ArrayBuffer.prototype.byteLength
 
@@ -128,7 +128,7 @@ const newBuffer = buffer.slice(0, 3);
 
 ### ArrayBuffer.isView()
 
-`ArrayBuffer`有一个静态方法`isView`，返回一个布尔值，表示参数是否为`ArrayBuffer`的视图实例。这个方法大致相当于判断参数，是否为 TypedArray 实例或`DataView`实例。
+`ArrayBuffer`有一个静态方法`isView`，返回一个布尔值，表示参数是否为`ArrayBuffer`的视图实例。这个方法大致相当于判断参数，是否为`TypedArray`实例或`DataView`实例。
 
 ```javascript
 const buffer = new ArrayBuffer(8);
@@ -142,9 +142,9 @@ ArrayBuffer.isView(v) // true
 
 ### 概述
 
-`ArrayBuffer`对象作为内存区域，可以存放多种类型的数据。同一段内存，不同数据有不同的解读方式，这就叫做“视图”（view）。`ArrayBuffer`有两种视图，一种是 TypedArray 视图，另一种是`DataView`视图。前者的数组成员都是同一个数据类型，后者的数组成员可以是不同的数据类型。
+`ArrayBuffer`对象作为内存区域，可以存放多种类型的数据。同一段内存，不同数据有不同的解读方式，这就叫做“视图”（view）。`ArrayBuffer`有两种视图，一种是`TypedArray`视图，另一种是`DataView`视图。前者的数组成员都是同一个数据类型，后者的数组成员可以是不同的数据类型。
 
-目前，TypedArray 视图一共包括 9 种类型，每一种视图都是一种构造函数。
+目前，`TypedArray`视图一共包括 9 种类型，每一种视图都是一种构造函数。
 
 - **`Int8Array`**：8 位有符号整数，长度 1 个字节。
 - **`Uint8Array`**：8 位无符号整数，长度 1 个字节。
@@ -156,7 +156,7 @@ ArrayBuffer.isView(v) // true
 - **`Float32Array`**：32 位浮点数，长度 4 个字节。
 - **`Float64Array`**：64 位浮点数，长度 8 个字节。
 
-这 9 个构造函数生成的数组，统称为 TypedArray 视图。它们很像普通数组，都有`length`属性，都能用方括号运算符（`[]`）获取单个元素，所有数组的方法，在它们上面都能使用。普通数组与 TypedArray 数组的差异主要在以下方面。
+这 9 个构造函数生成的数组，统称为`TypedArray`视图。它们很像普通数组，都有`length`属性，都能用方括号运算符（`[]`）获取单个元素，所有数组的方法，在它们上面都能使用。普通数组与 TypedArray 数组的差异主要在以下方面。
 
 - TypedArray 数组的所有成员，都是同一种类型。
 - TypedArray 数组的成员是连续的，不会有空位。
@@ -207,7 +207,7 @@ const i16 = new Int16Array(buffer, 1);
 
 上面代码中，新生成一个 8 个字节的`ArrayBuffer`对象，然后在这个对象的第一个字节，建立带符号的 16 位整数视图，结果报错。因为，带符号的 16 位整数需要两个字节，所以`byteOffset`参数必须能够被 2 整除。
 
-如果想从任意字节开始解读`ArrayBuffer`对象，必须使用`DataView`视图，因为 TypedArray 视图只提供 9 种固定的解读格式。
+如果想从任意字节开始解读`ArrayBuffer`对象，必须使用`DataView`视图，因为`TypedArray`视图只提供 9 种固定的解读格式。
 
 **（2）TypedArray(length)**
 
@@ -224,7 +224,7 @@ f64a[2] = f64a[0] + f64a[1];
 
 **（3）TypedArray(typedArray)**
 
-TypedArray 数组的构造函数，可以接受另一个 TypedArray 实例作为参数。
+TypedArray 数组的构造函数，可以接受另一个`TypedArray`实例作为参数。
 
 ```javascript
 const typedArray = new Int8Array(new Uint8Array(4));
@@ -260,15 +260,15 @@ y[0] // 2
 
 **（4）TypedArray(arrayLikeObject)**
 
-构造函数的参数也可以是一个普通数组，然后直接生成 TypedArray 实例。
+构造函数的参数也可以是一个普通数组，然后直接生成`TypedArray`实例。
 
 ```javascript
 const typedArray = new Uint8Array([1, 2, 3, 4]);
 ```
 
-注意，这时 TypedArray 视图会重新开辟内存，不会在原数组的内存上建立视图。
+注意，这时`TypedArray`视图会重新开辟内存，不会在原数组的内存上建立视图。
 
-上面代码从一个普通的数组，生成一个 8 位无符号整数的 TypedArray 实例。
+上面代码从一个普通的数组，生成一个 8 位无符号整数的`TypedArray`实例。
 
 TypedArray 数组也可以转换回普通数组。
 
@@ -435,6 +435,7 @@ function getPlatformEndianness() {
 ```javascript
 Int8Array.BYTES_PER_ELEMENT // 1
 Uint8Array.BYTES_PER_ELEMENT // 1
+Uint8ClampedArray.BYTES_PER_ELEMENT // 1
 Int16Array.BYTES_PER_ELEMENT // 2
 Uint16Array.BYTES_PER_ELEMENT // 2
 Int32Array.BYTES_PER_ELEMENT // 4
@@ -443,7 +444,7 @@ Float32Array.BYTES_PER_ELEMENT // 4
 Float64Array.BYTES_PER_ELEMENT // 8
 ```
 
-这个属性在 TypedArray 实例上也能获取，即有`TypedArray.prototype.BYTES_PER_ELEMENT`。
+这个属性在`TypedArray`实例上也能获取，即有`TypedArray.prototype.BYTES_PER_ELEMENT`。
 
 ### ArrayBuffer 与字符串的互相转换
 
@@ -501,7 +502,7 @@ uint8[0] // 255
 一个简单转换规则，可以这样表示。
 
 - 正向溢出（overflow）：当输入值大于当前数据类型的最大值，结果等于当前数据类型的最小值加上余值，再减去 1。
-- 负向溢出（underflow）：当输入值小于当前数据类型的最小值，结果等于当前数据类型的最大值减去余值，再加上 1。
+- 负向溢出（underflow）：当输入值小于当前数据类型的最小值，结果等于当前数据类型的最大值减去余值的绝对值，再加上 1。
 
 上面的“余值”就是模运算的结果，即 JavaScript 里面的`%`运算符的结果。
 
@@ -524,7 +525,7 @@ int8[0] = -129;
 int8[0] // 127
 ```
 
-上面例子中，`int8`是一个带符号的 8 位整数视图，它的最大值是 127，最小值是-128。输入值为`128`时，相当于正向溢出`1`，根据“最小值加上余值（128 除以 127 的余值是 1），再减去 1”的规则，就会返回`-128`；输入值为`-129`时，相当于负向溢出`1`，根据“最大值减去余值（-129 除以-128 的余值是 1），再加上 1”的规则，就会返回`127`。
+上面例子中，`int8`是一个带符号的 8 位整数视图，它的最大值是 127，最小值是-128。输入值为`128`时，相当于正向溢出`1`，根据“最小值加上余值（128 除以 127 的余值是 1），再减去 1”的规则，就会返回`-128`；输入值为`-129`时，相当于负向溢出`1`，根据“最大值减去余值的绝对值（-129 除以-128 的余值的绝对值是 1），再加上 1”的规则，就会返回`127`。
 
 `Uint8ClampedArray`视图的溢出规则，与上面的规则不同。它规定，凡是发生正向溢出，该值一律等于当前数据类型的最大值，即 255；如果发生负向溢出，该值一律等于当前数据类型的最小值，即 0。
 
@@ -542,7 +543,7 @@ uint8c[0] // 0
 
 ### TypedArray.prototype.buffer
 
-TypedArray 实例的`buffer`属性，返回整段内存区域对应的`ArrayBuffer`对象。该属性为只读属性。
+`TypedArray`实例的`buffer`属性，返回整段内存区域对应的`ArrayBuffer`对象。该属性为只读属性。
 
 ```javascript
 const a = new Float32Array(64);
@@ -622,7 +623,7 @@ b.byteLength // 2
 
 ### TypedArray.prototype.slice()
 
-TypeArray 实例的`slice`方法，可以返回一个指定位置的新的 TypedArray 实例。
+TypeArray 实例的`slice`方法，可以返回一个指定位置的新的`TypedArray`实例。
 
 ```javascript
 let ui8 = Uint8Array.of(0, 1, 2);
@@ -636,7 +637,7 @@ ui8.slice(-1)
 
 ### TypedArray.of()
 
-TypedArray 数组的所有构造函数，都有一个静态方法`of`，用于将参数转为一个 TypedArray 实例。
+TypedArray 数组的所有构造函数，都有一个静态方法`of`，用于将参数转为一个`TypedArray`实例。
 
 ```javascript
 Float32Array.of(0.151, -8, 3.7)
@@ -661,14 +662,14 @@ tarr[2] = 3;
 
 ### TypedArray.from()
 
-静态方法`from`接受一个可遍历的数据结构（比如数组）作为参数，返回一个基于这个结构的 TypedArray 实例。
+静态方法`from`接受一个可遍历的数据结构（比如数组）作为参数，返回一个基于这个结构的`TypedArray`实例。
 
 ```javascript
 Uint16Array.from([0, 1, 2])
 // Uint16Array [ 0, 1, 2 ]
 ```
 
-这个方法还可以将一种 TypedArray 实例，转为另一种。
+这个方法还可以将一种`TypedArray`实例，转为另一种。
 
 ```javascript
 const ui16 = Uint16Array.from(Uint8Array.of(0, 1, 2));
@@ -719,7 +720,7 @@ struct someStruct {
 
 如果一段数据包括多种类型（比如服务器传来的 HTTP 数据），这时除了建立`ArrayBuffer`对象的复合视图以外，还可以通过`DataView`视图进行操作。
 
-`DataView`视图提供更多操作选项，而且支持设定字节序。本来，在设计目的上，`ArrayBuffer`对象的各种 TypedArray 视图，是用来向网卡、声卡之类的本机设备传送数据，所以使用本机的字节序就可以了；而`DataView`视图的设计目的，是用来处理网络设备传来的数据，所以大端字节序或小端字节序是可以自行设定的。
+`DataView`视图提供更多操作选项，而且支持设定字节序。本来，在设计目的上，`ArrayBuffer`对象的各种`TypedArray`视图，是用来向网卡、声卡之类的本机设备传送数据，所以使用本机的字节序就可以了；而`DataView`视图的设计目的，是用来处理网络设备传来的数据，所以大端字节序或小端字节序是可以自行设定的。
 
 `DataView`视图本身也是构造函数，接受一个`ArrayBuffer`对象作为参数，生成视图。
 
@@ -734,7 +735,7 @@ const buffer = new ArrayBuffer(24);
 const dv = new DataView(buffer);
 ```
 
-`DataView`实例有以下属性，含义与 TypedArray 实例的同名方法相同。
+`DataView`实例有以下属性，含义与`TypedArray`实例的同名方法相同。
 
 - `DataView.prototype.buffer`：返回对应的 ArrayBuffer 对象
 - `DataView.prototype.byteLength`：返回占据的内存字节长度
@@ -1022,7 +1023,7 @@ onmessage = function (ev) {
 
 线程之间的数据交换可以是各种格式，不仅仅是字符串，也可以是二进制数据。这种交换采用的是复制机制，即一个进程将需要分享的数据复制一份，通过`postMessage`方法交给另一个进程。如果数据量比较大，这种通信的效率显然比较低。很容易想到，这时可以留出一块内存区域，由主线程与 Worker 线程共享，两方都可以读写，那么就会大大提高效率，协作起来也会比较简单（不像`postMessage`那么麻烦）。
 
-ES2017 引入[`SharedArrayBuffer`](https://github.com/tc39/ecmascript_sharedmem/blob/master/TUTORIAL.md)，允许 Worker 线程与主线程共享同一块内存。`SharedArrayBuffer`的 API 与`ArrayBuffer`一模一样，唯一的区别是后者无法共享。
+ES2017 引入[`SharedArrayBuffer`](https://github.com/tc39/ecmascript_sharedmem/blob/master/TUTORIAL.md)，允许 Worker 线程与主线程共享同一块内存。`SharedArrayBuffer`的 API 与`ArrayBuffer`一模一样，唯一的区别是后者无法共享数据。
 
 ```javascript
 // 主线程
@@ -1157,42 +1158,137 @@ console.log(ia[42]);  // 314159
 
 上面代码中，主线程的`Atomics.store`向 42 号位置的赋值，一定是早于 37 位置的赋值。只要 37 号位置等于 163，Worker 线程就不会终止循环，而对 37 号位置和 42 号位置的取值，一定是在`Atomics.load`操作之后。
 
-**（2）Atomics.wait()，Atomics.wake()**
+下面是另一个例子。
+
+```javascript
+// 主线程
+const worker = new Worker('worker.js');
+const length = 10;
+const size = Int32Array.BYTES_PER_ELEMENT * length;
+// 新建一段共享内存
+const sharedBuffer = new SharedArrayBuffer(size);
+const sharedArray = new Int32Array(sharedBuffer);
+for (let i = 0; i < 10; i++) {
+  // 向共享内存写入 10 个整数
+  Atomics.store(sharedArray, i, 0);
+}
+worker.postMessage(sharedBuffer);
+```
+
+上面代码中，主线程用`Atomics.store()`方法写入数据。下面是 Worker 线程用`Atomics.load()`方法读取数据。
+
+```javascript
+// worker.js
+self.addEventListener('message', (event) => {
+  const sharedArray = new Int32Array(event.data);
+  for (let i = 0; i < 10; i++) {
+    const arrayValue = Atomics.load(sharedArray, i);
+    console.log(`The item at array index ${i} is ${arrayValue}`);
+  }
+}, false);
+```
+
+**（2）Atomics.exchange()**
+
+Worker 线程如果要写入数据，可以使用上面的`Atomics.store()`方法，也可以使用`Atomics.exchange()`方法。它们的区别是，`Atomics.store()`返回写入的值，而`Atomics.exchange()`返回被替换的值。
+
+```javascript
+// Worker 线程
+self.addEventListener('message', (event) => {
+  const sharedArray = new Int32Array(event.data);
+  for (let i = 0; i < 10; i++) {
+    if (i % 2 === 0) {
+      const storedValue = Atomics.store(sharedArray, i, 1);
+      console.log(`The item at array index ${i} is now ${storedValue}`);
+    } else {
+      const exchangedValue = Atomics.exchange(sharedArray, i, 2);
+      console.log(`The item at array index ${i} was ${exchangedValue}, now 2`);
+    }
+  }
+}, false);
+```
+
+上面代码将共享内存的偶数位置的值改成`1`，奇数位置的值改成`2`。
+
+**（3）Atomics.wait()，Atomics.wake()**
 
 使用`while`循环等待主线程的通知，不是很高效，如果用在主线程，就会造成卡顿，`Atomics`对象提供了`wait()`和`wake()`两个方法用于等待通知。这两个方法相当于锁内存，即在一个线程进行操作时，让其他线程休眠（建立锁），等到操作结束，再唤醒那些休眠的线程（解除锁）。
 
 ```javascript
-Atomics.wait(sharedArray, index, value, time)
+// Worker 线程
+self.addEventListener('message', (event) => {
+  const sharedArray = new Int32Array(event.data);
+  const arrayIndex = 0;
+  const expectedStoredValue = 50;
+  Atomics.wait(sharedArray, arrayIndex, expectedStoredValue);
+  console.log(Atomics.load(sharedArray, arrayIndex));
+}, false);
 ```
 
-`Atomics.wait`用于当`sharedArray[index]`不等于`value`，就返回`not-equal`，否则就进入休眠，只有使用`Atomics.wake()`或者`time`毫秒以后才能唤醒。被`Atomics.wake()`唤醒时，返回`ok`，超时唤醒时返回`timed-out`。
+上面代码中，`Atomics.wait()`方法等同于告诉 Worker 线程，只要满足给定条件（`sharedArray`的`0`号位置等于`50`），就在这一行 Worker 线程进入休眠。
+
+主线程一旦更改了指定位置的值，就可以唤醒 Worker 线程。
+
+```javascript
+// 主线程
+const newArrayValue = 100;
+Atomics.store(sharedArray, 0, newArrayValue);
+const arrayIndex = 0;
+const queuePos = 1;
+Atomics.wake(sharedArray, arrayIndex, queuePos);
+```
+
+上面代码中，`sharedArray`的`0`号位置改为`100`，然后就执行`Atomics.wake()`方法，唤醒在`sharedArray`的`0`号位置休眠队列里的一个线程。
+
+`Atomics.wait()`方法的使用格式如下。
+
+```javascript
+Atomics.wait(sharedArray, index, value, timeout)
+```
+
+它的四个参数含义如下。
+
+- sharedArray：共享内存的视图数组。
+- index：视图数据的位置（从0开始）。
+- value：该位置的预期值。一旦实际值等于预期值，就进入休眠。
+- timeout：整数，表示过了这个时间以后，就自动唤醒，单位毫秒。该参数可选，默认值是`Infinity`，即无限期的休眠，只有通过`Atomics.wake()`方法才能唤醒。
+
+`Atomics.wait()`的返回值是一个字符串，共有三种可能的值。如果`sharedArray[index]`不等于`value`，就返回字符串`not-equal`，否则就进入休眠。如果`Atomics.wake()`方法唤醒，就返回字符串`ok`；如果因为超时唤醒，就返回字符串`timed-out`。
+
+`Atomics.wake()`方法的使用格式如下。
 
 ```javascript
 Atomics.wake(sharedArray, index, count)
 ```
 
-`Atomics.wake`用于唤醒`count`数目在`sharedArray[index]`位置休眠的线程，让它继续往下运行。
+它的三个参数含义如下。
 
-下面请看一个例子。
+- sharedArray：共享内存的视图数组。
+- index：视图数据的位置（从0开始）。
+- count：需要唤醒的 Worker 线程的数量，默认为`Infinity`。
+
+`Atomics.wake()`方法一旦唤醒休眠的 Worker 线程，就会让它继续往下运行。
+
+请看一个例子。
 
 ```javascript
-// 线程一
+// 主线程
 console.log(ia[37]);  // 163
 Atomics.store(ia, 37, 123456);
 Atomics.wake(ia, 37, 1);
 
-// 线程二
+// Worker 线程
 Atomics.wait(ia, 37, 163);
 console.log(ia[37]);  // 123456
 ```
 
-上面代码中，共享内存视图`ia`的第 37 号位置，原来的值是`163`。进程二使用`Atomics.wait()`方法，指定只要`ia[37]`等于`163`，就进入休眠状态。进程一使用`Atomics.store()`方法，将`123456`放入`ia[37]`，然后使用`Atomics.wake()`方法将监视`ia[37]`的休眠线程唤醒。
+上面代码中，视图数组`ia`的第 37 号位置，原来的值是`163`。Worker 线程使用`Atomics.wait()`方法，指定只要`ia[37]`等于`163`，就进入休眠状态。主线程使用`Atomics.store()`方法，将`123456`写入`ia[37]`，然后使用`Atomics.wake()`方法唤醒 Worker 线程。
 
 另外，基于`wait`和`wake`这两个方法的锁内存实现，可以看 Lars T Hansen 的 [js-lock-and-condition](https://github.com/lars-t-hansen/js-lock-and-condition) 这个库。
 
-注意，浏览器的主线程有权“拒绝”休眠，这是为了防止用户失去响应。
+注意，浏览器的主线程不宜设置休眠，这会导致用户失去响应。而且，主线程实际上会拒绝进入休眠。
 
-**（3）运算方法**
+**（4）运算方法**
 
 共享内存上面的某些运算是不能被打断的，即不能在运算过程中，让其他线程改写内存上面的值。Atomics 对象提供了一些运算方法，防止数据被改写。
 
@@ -1226,12 +1322,11 @@ Atomics.xor(sharedArray, index, value)
 
 `Atomic.xor`用于将`vaule`与`sharedArray[index]`进行位运算`xor`，放入`sharedArray[index]`，并返回旧的值。
 
-**（4）其他方法**
+**（5）其他方法**
 
 `Atomics`对象还有以下方法。
 
 - `Atomics.compareExchange(sharedArray, index, oldval, newval)`：如果`sharedArray[index]`等于`oldval`，就写入`newval`，返回`oldval`。
-- `Atomics.exchange(sharedArray, index, value)`：设置`sharedArray[index]`的值，返回旧的值。
 - `Atomics.isLockFree(size)`：返回一个布尔值，表示`Atomics`对象是否可以处理某个`size`的内存锁定。如果返回`false`，应用程序就需要自己来实现锁定。
 
 `Atomics.compareExchange`的一个用途是，从 SharedArrayBuffer 读取一个值，然后对该值进行某个操作，操作结束以后，检查一下 SharedArrayBuffer 里面原来那个值是否发生变化（即被其他线程改写过）。如果没有改写过，就将它写回原来的位置，否则读取新的值，再重头进行一次操作。

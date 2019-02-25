@@ -291,16 +291,16 @@ ES2017 引入了字符串补全长度的功能。如果某个字符串不够指�
 'x'.padEnd(4, 'ab') // 'xaba'
 ```
 
-上面代码中，`padStart`和`padEnd`一共接受两个参数，第一个参数用来指定字符串的最小长度，第二个参数是用来补全的字符串。
+上面代码中，`padStart()`和`padEnd()`一共接受两个参数，第一个参数是字符串补全生效的最大长度，第二个参数是用来补全的字符串。
 
-如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串。
+如果原字符串的长度，等于或大于最大长度，则字符串补全不生效，返回原字符串。
 
 ```javascript
 'xxx'.padStart(2, 'ab') // 'xxx'
 'xxx'.padEnd(2, 'ab') // 'xxx'
 ```
 
-如果用来补全的字符串与原字符串，两者的长度之和超过了指定的最小长度，则会截去超出位数的补全字符串。
+如果用来补全的字符串与原字符串，两者的长度之和超过了最大长度，则会截去超出位数的补全字符串。
 
 ```javascript
 'abc'.padStart(10, '0123456789')
@@ -314,7 +314,7 @@ ES2017 引入了字符串补全长度的功能。如果某个字符串不够指�
 'x'.padEnd(4) // 'x   '
 ```
 
-`padStart`的常见用途是为数值补全指定位数。下面代码生成 10 位的数值字符串。
+`padStart()`的常见用途是为数值补全指定位数。下面代码生成 10 位的数值字符串。
 
 ```javascript
 '1'.padStart(10, '0') // "0000000001"
@@ -803,7 +803,7 @@ jsx`
 `
 ```
 
-上面的代码通过`jsx`函数，将一个 DOM 字符串转为 React 对象。你可以在 Github 找到`jsx`函数的[具体实现](https://gist.github.com/lygaret/a68220defa69174bdec5)。
+上面的代码通过`jsx`函数，将一个 DOM 字符串转为 React 对象。你可以在 GitHub 找到`jsx`函数的[具体实现](https://gist.github.com/lygaret/a68220defa69174bdec5)。
 
 下面则是一个假想的例子，通过`java`函数，在 JavaScript 代码之中运行 Java 代码。
 
@@ -811,7 +811,7 @@ jsx`
 java`
 class HelloWorldApp {
   public static void main(String[] args) {
-    System.out.println(“Hello World!”); // Display the string.
+    System.out.println("Hello World!"); // Display the string.
   }
 }
 `

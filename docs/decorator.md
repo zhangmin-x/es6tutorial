@@ -1,5 +1,7 @@
 # 修饰器
 
+[说明] Decorator 提案经过了大幅修改，目前还没有定案，不知道语法会不会再变。下面的内容完全依据以前的提案，已经有点过时了。等待定案以后，需要完全重写。
+
 ## 类的修饰
 
 许多面向对象的语言都有修饰器（Decorator）函数，用来修改类的行为。目前，有一个[提案](https://github.com/tc39/proposal-decorators)将这项功能，引入了 ECMAScript。
@@ -774,7 +776,7 @@ obj.bar() // bar
 class MyClass {}
 ```
 
-上面代码排除`了TExample`的`foo`方法和`bar`方法，为`baz`方法起了别名`exampleBaz`。
+上面代码排除了`TExample`的`foo`方法和`bar`方法，为`baz`方法起了别名`exampleBaz`。
 
 `as`方法则为上面的代码提供了另一种写法。
 
@@ -787,10 +789,10 @@ class MyClass {}
 
 目前，Babel 转码器已经支持 Decorator。
 
-首先，安装`babel-core`和`babel-plugin-transform-decorators`。由于后者包括在`babel-preset-stage-0`之中，所以改为安装`babel-preset-stage-0`亦可。
+首先，安装`@babel/core`和`@babel/plugin-transform-decorators`。由于后者包括在`@babel/preset-stage-0`之中，所以改为安装`@babel/preset-stage-0`亦可。
 
 ```bash
-$ npm install babel-core babel-plugin-transform-decorators
+$ npm install @babel/core @babel/plugin-transform-decorators
 ```
 
 然后，设置配置文件`.babelrc`。

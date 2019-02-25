@@ -138,7 +138,7 @@ class B extends A {
 
 上面代码中，子类`B`的构造函数之中的`super()`，代表调用父类的构造函数。这是必须的，否则 JavaScript 引擎会报错。
 
-注意，`super`虽然代表了父类`A`的构造函数，但是返回的是子类`B`的实例，即`super`内部的`this`指的是`B`，因此`super()`在这里相当于`A.prototype.constructor.call(this)`。
+注意，`super`虽然代表了父类`A`的构造函数，但是返回的是子类`B`的实例，即`super`内部的`this`指的是`B`的实例，因此`super()`在这里相当于`A.prototype.constructor.call(this)`。
 
 ```javascript
 class A {
@@ -688,11 +688,17 @@ const c = {...a, ...b}; // {a: 'a', b: 'b'}
 
 ```javascript
 function mix(...mixins) {
-  class Mix {}
+  class Mix {
+    constructor() {
+      for (let mixin of mixins) {
+        copyProperties(this, new mixin()); // 拷贝实例属性
+      }
+    }
+  }
 
   for (let mixin of mixins) {
-    copyProperties(Mix.prototype, mixin); // 拷贝实例属性
-    copyProperties(Mix.prototype, Reflect.getPrototypeOf(mixin)); // 拷贝原型属性
+    copyProperties(Mix, mixin); // 拷贝静态属性
+    copyProperties(Mix.prototype, mixin.prototype); // 拷贝原型属性
   }
 
   return Mix;
@@ -700,9 +706,9 @@ function mix(...mixins) {
 
 function copyProperties(target, source) {
   for (let key of Reflect.ownKeys(source)) {
-    if ( key !== "constructor"
-      && key !== "prototype"
-      && key !== "name"
+    if ( key !== 'constructor'
+      && key !== 'prototype'
+      && key !== 'name'
     ) {
       let desc = Object.getOwnPropertyDescriptor(source, key);
       Object.defineProperty(target, key, desc);

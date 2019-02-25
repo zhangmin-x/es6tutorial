@@ -310,7 +310,7 @@ wrapped().next('hello!')
 
 ## for...of 循环
 
-`for...of`循环可以自动遍历 Generator 函数时生成的`Iterator`对象，且此时不再需要调用`next`方法。
+`for...of`循环可以自动遍历 Generator 函数运行时生成的`Iterator`对象，且此时不再需要调用`next`方法。
 
 ```javascript
 function* foo() {
@@ -700,7 +700,7 @@ g.next()        // { value: 1, done: false }
 g.return() // { value: undefined, done: true }
 ```
 
-如果 Generator 函数内部有`try...finally`代码块，那么`return`方法会推迟到`finally`代码块执行完再执行。
+如果 Generator 函数内部有`try...finally`代码块，且正在执行`try`代码块，那么`return`方法会推迟到`finally`代码块执行完再执行。
 
 ```javascript
 function* numbers () {
@@ -1003,6 +1003,12 @@ for(let x of iterTree(tree)) {
 // c
 // d
 // e
+```
+
+由于扩展运算符`...`默认调用 Iterator 接口，所以上面这个函数也可以用于嵌套数组的平铺。
+
+```javascript
+[...iterTree(tree)] // ["a", "b", "c", "d", "e"]
 ```
 
 下面是一个稍微复杂的例子，使用`yield*`语句遍历完全二叉树。
